@@ -2,6 +2,10 @@
 
 This project represents a system for the automatic classification of incoming emails using Google's Gemini model. It connects to an IMAP server, processes emails, classifies them, and moves them to appropriate folders based on their content.
 
+## Donations
+
+If you find this project useful, you can support it through Revolut: https://revolut.me/chuk1.
+
 ## Dependencies
 
 For proper functioning of the project, the following dependencies need to be installed:
