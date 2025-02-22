@@ -1,0 +1,38 @@
+name: Go Multi-Arch Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.20'
+
+    - name: Build for multiple architectures
+      run: |
+        for GOOS in linux windows darwin; do
+          for GOARCH in amd64 arm64; do
+            echo "Building for $GOOS-$GOARCH"
+            GOOS=$GOOS GOARCH=$GOARCH go build -o build/mailcat-$GOOS-$GOARCH .
+          done
+        done
+
+    - name: Test
+      run: go test -v ./...
+
+    - name: Create Draft Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v0.1.0
+        name: "Draft Release v0.1.0"
+        draft: true
+        files: build/*
