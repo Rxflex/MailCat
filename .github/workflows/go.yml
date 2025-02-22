@@ -29,6 +29,9 @@ jobs:
     - name: Test
       run: go test -v ./...
 
+    - name: Create Git Tag
+      run: git tag v0.1.0 && git push origin v0.1.0
+
     - name: Create Draft Release
       uses: softprops/action-gh-release@v1
       with:
